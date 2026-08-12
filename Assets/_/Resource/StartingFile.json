@@ -1,0 +1,27 @@
+{
+  "name": "/",
+  "isDirectory": true,
+  "children": [
+    {
+      "name": "home",
+      "isDirectory": true,
+      "children": [
+        {
+          "name": "user",
+          "isDirectory": true,
+          "children": [
+            { "name": "notes.txt", "isDirectory": false, "content": "Meeting at 9am" },
+            { "name": "passwords.txt", "isDirectory": false, "content": "admin:hunter2" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "etc",
+      "isDirectory": true,
+      "children": [
+        { "name": "config.sys", "isDirectory": false, "content": "firewall=enabled" }
+      ]
+    }
+  ]
+}

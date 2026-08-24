@@ -3,18 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LinuxCommand 
+public class LinuxCommand
 {
-    
+    private MachineRegistry _machineRegistry;
     private Dictionary<string, Action<string[]>> _commands;
     
     private VirtualFileSystem _vfs;
+    
+    // Tools
+    private NmapCommand _nmapCommand;
+    
+    
     private string _result;
     
-    public LinuxCommand( TextAsset startingFileSystemJson)
+    public LinuxCommand( MachineRegistry machineRegistry,
+        TextAsset startingFileSystemJson)
     {
+        // Initialize
+        _machineRegistry = machineRegistry;
+        
+        // Model
         _vfs = new VirtualFileSystem();
+        _nmapCommand = new NmapCommand(machineRegistry, Print);
+        
+        // Load
         _vfs.LoadFromJson(startingFileSystemJson.text);
+        
+        // Initialize
         OnInitializeLinuxCommand();
     }
     
@@ -29,6 +44,9 @@ public class LinuxCommand
             { "clear", args => _result = "" },
             { "whoami", args => Print("user") },
             { "help", args => Print(string.Join(", ", _commands.Keys)) },
+            
+            // Tool 
+            { "nmap", _nmapCommand.Execute },
         };
     }
     

@@ -11,6 +11,7 @@ public class CommandProcessor : MonoBehaviour
     [SerializeField] private CommandInputSystem commandInputSystem;
     [SerializeField] private CommandOutputSystem commandOutputSystem;
     [SerializeField] private ImageRegistry imageRegistry;
+    [SerializeField] private MachineRegistry machineRegistry;
     [SerializeField] private TextAsset startingFileSystemJson;
     
     private LinuxCommand _linuxCommand;
@@ -24,22 +25,9 @@ public class CommandProcessor : MonoBehaviour
 
     private void Awake()
     {
-        _linuxCommand = new LinuxCommand(startingFileSystemJson);
+        _linuxCommand = new LinuxCommand(machineRegistry, startingFileSystemJson);
         _commands = _linuxCommand.GetCommandList;
-        
-    //     _vfs = new VirtualFileSystem();
-    //     _vfs.LoadFromJson(startingFileSystemJson.text);
-    //
-    //     _commands = new Dictionary<string, Action<string[]>>
-    //     {
-    //         { "ls", CmdLs },
-    //         { "cd", CmdCd },
-    //         { "cat", CmdCat },
-    //         { "pwd", args => Print(_vfs.GetCurrentPathString()) },
-    //         { "clear", args => _result = "" },
-    //         { "whoami", args => Print("user") },
-    //         { "help", args => Print(string.Join(", ", _commands.Keys)) },
-    //     };
+  
     }
 
     private void OnEnable()
@@ -93,41 +81,5 @@ public class CommandProcessor : MonoBehaviour
     }
 
     private void Print(string text) => _result += text + "\n";
-    //
-    // private void CmdLs(string[] args)
-    // {
-    //     if (_vfs.CurrentDir.Children.Count == 0) { Print("(empty)"); return; }
-    //     Print(string.Join("  ", _vfs.CurrentDir.Children
-    //         .Select(c => c.IsDirectory ? c.Name + "/" : c.Name)));
-    // }
-    //
-    // private void CmdCd(string[] args)
-    // {
-    //     var path = args.Length > 0 ? args[0] : "/";
-    //     if (!_vfs.ChangeDirectory(path, out var error)) Print(error);
-    // }
-    //
-    // private void CmdCat(string[] args)
-    // {
-    //     if (args.Length == 0) { Print("cat: missing filename"); return; }
-    //
-    //     var node = _vfs.ResolvePath(args[0]);
-    //     if (node == null) { Print($"cat: {args[0]}: No such file or directory"); return; }
-    //     if (node.IsDirectory) { Print($"cat: {args[0]}: Is a directory"); return; }
-    //
-    //     if (node.Type == "image")
-    //     {
-    //         var sprite = imageRegistry.GetImage(node.AssetKey);
-    //         if (sprite != null)
-    //         {
-    //             onImageOpened?.Invoke(sprite);
-    //             Print($"[opened image: {node.Name}]");
-    //         }
-    //         else Print($"cat: could not load image data for {node.Name}");
-    //     }
-    //     else
-    //     {
-    //         Print(node.Content);
-    //     }
-    // }
+
 }

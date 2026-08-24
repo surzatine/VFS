@@ -1,0 +1,133 @@
+@startuml
+class CommandInputSystem {
+    + OnCommandSubmitted : UnityEvent<string>
+}
+class CommandOutputSystem {
+}
+class SpriteEvent {
+}
+class CommandProcessor {
+    - _linuxCommand : LinuxCommand
+    - _result : string
+    + onCommandProcessed : UnityEvent<string>
+}
+class ExploitCommandBase <<abstract>> {
+    # Print : Action<string>
+    + Execute(args : string[]) : void
+}
+class HashcatCommand {
+}
+class HydraCommand {
+}
+class MetasploitCommand {
+}
+class NmapCommand {
+    - _machineRegistry : MachineRegistry
+    - _print : Action<string>
+}
+class WiresharkCommand {
+}
+class LinuxCommand {
+    - _machineRegistry : MachineRegistry
+    - _vfs : VirtualFileSystem
+    - _nmapCommand : NmapCommand
+    - _result : string
+}
+class PortInfo {
+    + port : int
+    + service : string
+    + isOpen : bool
+}
+class CredentialLeak {
+    + username : string
+    + password : string
+    + context : string
+}
+class MachineData {
+    + ip : string
+    + hostname : string
+    + os : string
+    + ports : List<PortInfo>
+    + sniffableCredentials : List<CredentialLeak>
+    + exploitPayload : string
+    + isCompromised : bool
+    + fileSystem : VNodeData
+}
+class MachinePrefabHandler {
+}
+class ImageRegistry {
+    + images : List<ImageEntry>
+}
+class ImageEntry {
+    + key : string
+    + image : Sprite
+}
+class MachineRegistry {
+}
+class SoFileReference {
+    + FileReference : FileReference
+}
+class FileReference {
+    + FileType : FileTypeEnum
+    + FileName : string
+    + FileContent : string
+    + FilePath : string
+    + IsFileExists : bool
+    + FileIcon : Sprite
+    + FileContentImage : Sprite
+}
+class VNodeData {
+    + name : string
+    + isDirectory : bool
+    + type : string
+    + content : string
+    + assetKey : string
+    + children : System.Collections.Generic.List<VNodeData>
+}
+class VirtualFileSystem {
+    + Root : VNode
+    + CurrentDir : VNode
+}
+class VNode {
+    + Name : string
+    + IsDirectory : bool
+    + Type : string
+    + Content : string
+    + AssetKey : string
+    + Children : List<VNode>
+    + Parent : VNode
+}
+class ReadmeEditor {
+}
+class Readme {
+    + icon : Texture2D
+    + title : string
+    + sections : Section[]
+    + loadedLayout : bool
+}
+class Section {
+}
+MonoBehaviour <|-- CommandInputSystem
+MonoBehaviour <|-- CommandOutputSystem
+UnityEvent <|-- SpriteEvent
+MonoBehaviour <|-- CommandProcessor
+MonoBehaviour <|-- HashcatCommand
+MonoBehaviour <|-- HydraCommand
+MonoBehaviour <|-- MetasploitCommand
+MonoBehaviour <|-- WiresharkCommand
+MonoBehaviour <|-- MachinePrefabHandler
+ScriptableObject <|-- ImageRegistry
+ScriptableObject <|-- MachineRegistry
+ScriptableObject <|-- SoFileReference
+Editor <|-- ReadmeEditor
+ScriptableObject <|-- Readme
+CommandProcessor --> LinuxCommand : _linuxCommand
+NmapCommand --> MachineRegistry : _machineRegistry
+NmapCommand --> ExploitCommandBase : Execute()
+LinuxCommand --> MachineRegistry : _machineRegistry
+LinuxCommand --> VirtualFileSystem : _vfs
+LinuxCommand --> NmapCommand : _nmapCommand
+MachineData --> VNodeData : fileSystem
+SoFileReference --> FileReference : FileReference
+VirtualFileSystem --> VNode : Root, CurrentDir
+@enduml

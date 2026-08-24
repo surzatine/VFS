@@ -1170,9 +1170,11 @@ MonoBehaviour:
   commandInputSystem: {fileID: 2122305137}
   commandOutputSystem: {fileID: 1997168364}
   imageRegistry: {fileID: 11400000, guid: 6ffc11f9b1d53e748ae93ede6c55774f, type: 2}
-  machineRegistry: {fileID: 11400000, guid: 7a2070dd259dece459ad1efad9f43f31, type: 2}
   startingFileSystemJson: {fileID: 4900000, guid: 4987f33efeb110e4eaddba8825b59e54, type: 3}
   onCommandProcessed:
+    m_PersistentCalls:
+      m_Calls: []
+  onImageOpened:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1535065588

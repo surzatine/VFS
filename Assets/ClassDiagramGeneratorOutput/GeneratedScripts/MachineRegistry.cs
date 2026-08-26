@@ -1,5 +1,5 @@
-using UnityEngine;
-
-public class MachineRegistry : ScriptableObject
-{
-}
+// using UnityEngine;
+//
+// public class MachineRegistry : ScriptableObject
+// {
+// }

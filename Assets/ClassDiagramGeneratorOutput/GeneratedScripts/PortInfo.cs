@@ -1,6 +1,6 @@
-public class PortInfo
-{
-    public int port;
-    public string service;
-    public bool isOpen;
-}
+// public class PortInfo
+// {
+//     public int port;
+//     public string service;
+//     public bool isOpen;
+// }

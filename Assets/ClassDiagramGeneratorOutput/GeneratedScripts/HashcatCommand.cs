@@ -1,5 +1,5 @@
-using UnityEngine;
-
-public class HashcatCommand : MonoBehaviour
-{
-}
+// using UnityEngine;
+//
+// public class HashcatCommand : MonoBehaviour
+// {
+// }

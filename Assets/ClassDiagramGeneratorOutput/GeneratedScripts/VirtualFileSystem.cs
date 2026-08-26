@@ -1,5 +1,5 @@
-public class VirtualFileSystem
-{
-    public VNode Root;
-    public VNode CurrentDir;
-}
+// public class VirtualFileSystem
+// {
+//     public VNode Root;
+//     public VNode CurrentDir;
+// }

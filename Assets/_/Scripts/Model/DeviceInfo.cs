@@ -25,3 +25,22 @@ public class MachineData {
     public bool isCompromised;
     public VNodeData fileSystem;    // the machine's VFS, unlocked once compromised
 }
+
+[System.Serializable]
+public class CapturedHash
+{
+    public string username;
+    public string hash;
+    public string algorithm;
+    public string plaintext;
+}
+
+[System.Serializable]
+public class NetworkPacket
+{
+    public string sourceIp;
+    public string destinationIp;
+    public int port;
+    public string protocol;
+    public string data;
+}

@@ -8,10 +8,11 @@ public class LinuxCommand
     private MachineRegistry _machineRegistry;
     private Dictionary<string, Action<string[]>> _commands;
     
-    private VirtualFileSystem _vfs;
+    private readonly VirtualFileSystem _vfs;
     
     // Tools
-    private NmapCommand _nmapCommand;
+    private readonly NmapCommand _nmapCommand;
+    private readonly MetasploitCommand _metasploitCommand;
     
     
     private string _result;
@@ -25,6 +26,7 @@ public class LinuxCommand
         // Model
         _vfs = new VirtualFileSystem();
         _nmapCommand = new NmapCommand(machineRegistry, Print);
+        _metasploitCommand = new MetasploitCommand(machineRegistry, Print);
         
         // Load
         _vfs.LoadFromJson(startingFileSystemJson.text);
@@ -47,6 +49,7 @@ public class LinuxCommand
             
             // Tool 
             { "nmap", _nmapCommand.Execute },
+            {"metasploit", _metasploitCommand.Execute}
         };
     }
     

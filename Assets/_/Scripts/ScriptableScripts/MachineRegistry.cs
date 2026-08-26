@@ -9,6 +9,9 @@ public class MachineRegistry : ScriptableObject
     
     public MachineData GetByIp(string ip)
     {
-        return machineData;
+        if (machineData == null)
+            return null;
+
+        return machineData.ip == ip ? machineData : null;
     }
 }
